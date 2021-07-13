@@ -1,9 +1,14 @@
 import "./App.css";
+import { BrowserRouter } from "react-router-dom";
+
+import AppLayout from "./components/AppLayout/AppLayout";
 
 function App() {
   return (
     <div>
-      <h1>hoodie.</h1>
+      <BrowserRouter>
+        <AppLayout />
+      </BrowserRouter>
     </div>
   );
 }
