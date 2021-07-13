@@ -5,10 +5,9 @@ import { Route, Switch, Redirect } from "react-router-dom";
 //components imports
 import Home from "../Home/Home";
 
-const AppLayout = (props) => {
+const AppLayout = () => {
   return (
     <div className={style.appLayout}>
-      <h1>hoodie</h1>
       <Switch>
         <Route path="/" exact component={Home} />
       </Switch>
