@@ -47,6 +47,13 @@
   max-width: 680px;
 }
 
+.productSection h1 {
+  font-size: 34px;
+  font-weight: 800;
+  color: black;
+  margin-top: 60px;
+}
+
 @media (max-width: 1100px) {
   .heroSectionContent {
     flex-direction: column;

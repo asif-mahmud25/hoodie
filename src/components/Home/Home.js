@@ -4,6 +4,9 @@ import style from "./Home.module.css";
 //assets import
 import heroImg from "../../assets/heroImage.png";
 
+//components imports
+import HomeProduct from "../HomeProduct/HomeProduct";
+
 const Home = () => {
   return (
     <div className={style.home}>
@@ -20,6 +23,21 @@ const Home = () => {
             <div className={style.heroImage}>
               <img src={heroImg} alt=""></img>
             </div>
+          </div>
+        </div>
+      </div>
+      <div className={style.productSection}>
+        <div className="container">
+          <h1>NEW ARRIVALS</h1>
+          <div className={style.newArrivalProducts}>
+            <HomeProduct
+              imageUrl="https://firebasestorage.googleapis.com/v0/b/hoodie-94315.appspot.com/o/p1-medium.png?alt=media&token=2e24dbc9-6a22-4cb4-ad60-abc7473407f9"
+              name="Hoodie jacket hybrid"
+              description="Exclusive designer hoodie for men, pullover
+              style with unique red and dark green 
+              combo color"
+              price={12.8}
+            />
           </div>
         </div>
       </div>
