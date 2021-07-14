@@ -9,8 +9,7 @@
 }
 
 .sideBarHeaderContent img {
-  width: fit-content;
-  height: fit-content;
+  width: 40px;
   display: block;
   cursor: pointer;
 }
@@ -25,7 +24,7 @@
 
 .sideBarHeaderContent h1 {
   flex: 1;
-  font-size: 28px;
+  font-size: 38px;
   color: black;
   font-weight: 800;
 }
@@ -121,8 +120,19 @@
   color: white;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 900px) {
   .sideBar {
     display: none;
+  }
+}
+
+/* mobile view */
+@media (max-width: 600px) {
+  .sideBarHeaderContent h1 {
+    font-size: 28px;
+  }
+
+  .sideBarHeaderContent img {
+    width: 30px;
   }
 }
