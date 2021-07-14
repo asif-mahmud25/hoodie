@@ -1,15 +1,12 @@
 import React from "react";
 import style from "./Home.module.css";
 
-import NavBar from "../NavBar/NavBar";
-
 //assets import
 import heroImg from "../../assets/heroImage.png";
 
 const Home = () => {
   return (
     <div className={style.home}>
-      <NavBar />
       <div className={style.heroSection}>
         <div className="container">
           <div className={style.heroSectionContent}>
@@ -21,7 +18,7 @@ const Home = () => {
               <p>Hoodies, jackets & sweaters</p>
             </div>
             <div className={style.heroImage}>
-              <img src={heroImg}></img>
+              <img src={heroImg} alt=""></img>
             </div>
           </div>
         </div>
