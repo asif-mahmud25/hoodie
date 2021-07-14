@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import style from "./SideBar.module.css";
 
 //assets imports
@@ -16,6 +17,27 @@ const SideBar = () => {
   const closeSidebar = () => {
     setSidebarOpen(false);
   };
+
+  let navItems = (
+    <nav>
+      <ul>
+        <li onClick={closeSidebar}>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        <li onClick={closeSidebar}>
+          <NavLink to="/favorites">Favorites</NavLink>
+        </li>
+        <li onClick={closeSidebar}>
+          <NavLink to="/cart">Cart</NavLink>
+        </li>
+        <li>
+          <div onClick={closeSidebar}>
+            <NavLink to="/sign-up">Sign Up</NavLink>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  );
   return (
     <div className={style.sideBar}>
       <div className={style.sideBarHeader}>
@@ -37,7 +59,8 @@ const SideBar = () => {
       <div
         className={sideBarOpen ? style.sideBarBoxOpen : style.sideBarBoxClosed}
       >
-        hoodie
+        <h1 className={style.sidebarBoxLogo}>hoodie.</h1>
+        <div className={style.navItems}>{navItems}</div>
       </div>
     </div>
   );

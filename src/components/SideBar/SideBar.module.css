@@ -66,10 +66,59 @@
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(16px);
   z-index: 100;
+  cursor: pointer;
 }
 
 .sideBarBoxBackdropHidden {
   display: none;
+}
+
+.sidebarBoxLogo {
+  width: 100%;
+  font-size: 28px;
+  font-weight: 800;
+  color: black;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.navItems {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.navItems ul {
+  list-style: none;
+  margin-top: 30px;
+}
+
+.navItems ul li {
+  width: 100%;
+  height: 52px;
+  margin-bottom: 16px;
+}
+
+.navItems ul li a {
+  font-size: 20px;
+  font-weight: 500;
+  color: black;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  line-height: 52px;
+  text-align: center;
+}
+
+.navItems ul li div {
+  width: 140px;
+  height: 52px;
+  background-color: black;
+  margin: 0 auto;
+}
+
+.navItems ul li div a {
+  color: white;
 }
 
 @media (min-width: 800px) {
