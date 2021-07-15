@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Home.module.css";
+import { db } from "../../firebase";
 
 //assets import
 import heroImg from "../../assets/heroImage.png";
@@ -8,6 +9,52 @@ import heroImg from "../../assets/heroImage.png";
 import HomeProduct from "../HomeProduct/HomeProduct";
 
 const Home = () => {
+  //product state
+  const [products, setProducts] = useState([]);
+
+  //for holding the products
+  let allProducts = [];
+
+  useEffect(() => {
+    db.collection("products")
+      .get()
+      .then((res) => {
+        res.forEach((doc) => {
+          allProducts.push(doc.data());
+        });
+        setProducts(allProducts);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // eslint-disable-next-line
+  }, []);
+
+  //for test
+  console.log(products);
+
+  //for rendering products on dom
+  let newArrivalsRender = [];
+  let mostPopularRender = [];
+  let productsRender = [];
+
+  if (products.length > 0) {
+    productsRender = products.map((el) => {
+      return (
+        <HomeProduct
+          key={el.id}
+          id={el.id}
+          imageUrl={el.imgM}
+          name={el.name}
+          description={el.description}
+          price={el.price}
+        />
+      );
+    });
+
+    newArrivalsRender = productsRender.slice(0, 3);
+    mostPopularRender = productsRender.slice(3);
+  }
   return (
     <div className={style.home}>
       <div className={style.heroSection}>
@@ -29,63 +76,13 @@ const Home = () => {
       <div className={style.productSection}>
         <div className="container">
           <h1>NEW ARRIVALS</h1>
-          <div className={style.productsShowcase}>
-            <HomeProduct
-              imageUrl="https://firebasestorage.googleapis.com/v0/b/hoodie-94315.appspot.com/o/p1-medium.png?alt=media&token=2e24dbc9-6a22-4cb4-ad60-abc7473407f9"
-              name="Hoodie jacket hybrid"
-              description="Exclusive designer hoodie for men, pullover
-              style with unique red and dark green 
-              combo color"
-              price={12.8}
-            />
-            <HomeProduct
-              imageUrl="https://firebasestorage.googleapis.com/v0/b/hoodie-94315.appspot.com/o/p1-medium.png?alt=media&token=2e24dbc9-6a22-4cb4-ad60-abc7473407f9"
-              name="Hoodie jacket hybrid"
-              description="Exclusive designer hoodie for men, pullover
-              style with unique red and dark green 
-              combo color"
-              price={12.8}
-            />
-            <HomeProduct
-              imageUrl="https://firebasestorage.googleapis.com/v0/b/hoodie-94315.appspot.com/o/p1-medium.png?alt=media&token=2e24dbc9-6a22-4cb4-ad60-abc7473407f9"
-              name="Hoodie jacket hybrid"
-              description="Exclusive designer hoodie for women, 
-              pullover style with soft and warm cotton.
-              light weight with classic solid color"
-              price={12.8}
-            />
-          </div>
+          <div className={style.productsShowcase}>{newArrivalsRender}</div>
         </div>
       </div>
       <div className={style.productSection}>
         <div className="container">
           <h1>MOST POPULAR</h1>
-          <div className={style.productsShowcase}>
-            <HomeProduct
-              imageUrl="https://firebasestorage.googleapis.com/v0/b/hoodie-94315.appspot.com/o/p1-medium.png?alt=media&token=2e24dbc9-6a22-4cb4-ad60-abc7473407f9"
-              name="Hoodie jacket hybrid"
-              description="Exclusive designer hoodie for men, pullover
-              style with unique red and dark green 
-              combo color"
-              price={12.8}
-            />
-            <HomeProduct
-              imageUrl="https://firebasestorage.googleapis.com/v0/b/hoodie-94315.appspot.com/o/p1-medium.png?alt=media&token=2e24dbc9-6a22-4cb4-ad60-abc7473407f9"
-              name="Hoodie jacket hybrid"
-              description="Exclusive designer hoodie for men, pullover
-              style with unique red and dark green 
-              combo color"
-              price={12.8}
-            />
-            <HomeProduct
-              imageUrl="https://firebasestorage.googleapis.com/v0/b/hoodie-94315.appspot.com/o/p1-medium.png?alt=media&token=2e24dbc9-6a22-4cb4-ad60-abc7473407f9"
-              name="Hoodie jacket hybrid"
-              description="Exclusive designer hoodie for women, 
-              pullover style with soft and warm cotton.
-              light weight with classic solid color"
-              price={12.8}
-            />
-          </div>
+          <div className={style.productsShowcase}>{mostPopularRender}</div>
         </div>
       </div>
     </div>
