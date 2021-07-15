@@ -70,6 +70,8 @@
 
   .heroImage img {
     margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -107,6 +109,8 @@
 
   .heroImage img {
     margin-top: 32px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .productSection h1 {

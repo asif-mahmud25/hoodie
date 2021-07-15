@@ -57,6 +57,37 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <div className={style.productSection}>
+        <div className="container">
+          <h1>MOST POPULAR</h1>
+          <div className={style.productsShowcase}>
+            <HomeProduct
+              imageUrl="https://firebasestorage.googleapis.com/v0/b/hoodie-94315.appspot.com/o/p1-medium.png?alt=media&token=2e24dbc9-6a22-4cb4-ad60-abc7473407f9"
+              name="Hoodie jacket hybrid"
+              description="Exclusive designer hoodie for men, pullover
+              style with unique red and dark green 
+              combo color"
+              price={12.8}
+            />
+            <HomeProduct
+              imageUrl="https://firebasestorage.googleapis.com/v0/b/hoodie-94315.appspot.com/o/p1-medium.png?alt=media&token=2e24dbc9-6a22-4cb4-ad60-abc7473407f9"
+              name="Hoodie jacket hybrid"
+              description="Exclusive designer hoodie for men, pullover
+              style with unique red and dark green 
+              combo color"
+              price={12.8}
+            />
+            <HomeProduct
+              imageUrl="https://firebasestorage.googleapis.com/v0/b/hoodie-94315.appspot.com/o/p1-medium.png?alt=media&token=2e24dbc9-6a22-4cb4-ad60-abc7473407f9"
+              name="Hoodie jacket hybrid"
+              description="Exclusive designer hoodie for women, 
+              pullover style with soft and warm cotton.
+              light weight with classic solid color"
+              price={12.8}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
