@@ -112,9 +112,13 @@
   cursor: pointer;
 }
 
-/* hide elements */
+/* hide/show elements */
 .hide {
   display: none;
+}
+
+.show {
+  display: block;
 }
 
 @media (max-width: 1150px) {
