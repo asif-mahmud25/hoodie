@@ -18,6 +18,9 @@ const Product = () => {
   const [productLoading, setProductLoading] = useState(true);
   const [imgLoading, setImgLoading] = useState(true);
 
+  //product size state
+  const [productSize, setProductSize] = useState("M");
+
   //product state
   const [product, setProduct] = useState({
     id: "",
@@ -66,8 +69,26 @@ const Product = () => {
     setImgLoading(false);
   };
 
+  //size button styles
+  let sSizeBtn = style.sizeButton;
+  let mSizeBtn = style.sizeButton;
+  let lSizeBtn = style.sizeButton;
+  let xLSizeBtn = style.sizeButton;
+
+  //size button style logic
+  if (productSize === "S") {
+    sSizeBtn = style.sizeButtonActive;
+  } else if (productSize === "M") {
+    mSizeBtn = style.sizeButtonActive;
+  } else if (productSize === "L") {
+    lSizeBtn = style.sizeButtonActive;
+  } else if (productSize === "XL") {
+    xLSizeBtn = style.sizeButtonActive;
+  }
+
   //for test
   console.log(product);
+  console.log(productSize);
   return (
     <div className={style.product}>
       <div className="container">
@@ -88,10 +109,38 @@ const Product = () => {
             <p>{product.description}</p>
             <h1>{product.price}</h1>
             <div className={style.sizeButtonsContainer}>
-              <button className={style.sizeButton}>S</button>
-              <button className={style.sizeButton}>M</button>
-              <button className={style.sizeButton}>L</button>
-              <button className={style.sizeButton}>XL</button>
+              <button
+                className={sSizeBtn}
+                onClick={() => {
+                  setProductSize("S");
+                }}
+              >
+                S
+              </button>
+              <button
+                className={mSizeBtn}
+                onClick={() => {
+                  setProductSize("M");
+                }}
+              >
+                M
+              </button>
+              <button
+                className={lSizeBtn}
+                onClick={() => {
+                  setProductSize("L");
+                }}
+              >
+                L
+              </button>
+              <button
+                className={xLSizeBtn}
+                onClick={() => {
+                  setProductSize("XL");
+                }}
+              >
+                XL
+              </button>
             </div>
             <div>
               <button className={style.cartButton}>Add To Cart</button>
