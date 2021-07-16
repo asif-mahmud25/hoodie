@@ -7,10 +7,14 @@ import heroImg from "../../assets/heroImage.png";
 
 //components imports
 import HomeProduct from "../HomeProduct/HomeProduct";
+import MainLoader from "../Loaders/MainLoader/MainLoader";
 
 const Home = () => {
   //product state
   const [products, setProducts] = useState([]);
+
+  //loading state
+  const [loading, setLoading] = useState(true);
 
   //for holding the products
   let allProducts = [];
@@ -23,9 +27,11 @@ const Home = () => {
           allProducts.push(doc.data());
         });
         setProducts(allProducts);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
     // eslint-disable-next-line
   }, []);
@@ -73,17 +79,22 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className={style.productSection}>
-        <div className="container">
-          <h1>NEW ARRIVALS</h1>
-          <div className={style.productsShowcase}>{newArrivalsRender}</div>
+      <div className={loading ? style.hide : style.show}>
+        <div className={style.productSection}>
+          <div className="container">
+            <h1>NEW ARRIVALS</h1>
+            <div className={style.productsShowcase}>{newArrivalsRender}</div>
+          </div>
+        </div>
+        <div className={style.productSection}>
+          <div className="container">
+            <h1>MOST POPULAR</h1>
+            <div className={style.productsShowcase}>{mostPopularRender}</div>
+          </div>
         </div>
       </div>
-      <div className={style.productSection}>
-        <div className="container">
-          <h1>MOST POPULAR</h1>
-          <div className={style.productsShowcase}>{mostPopularRender}</div>
-        </div>
+      <div className={loading ? style.show : style.hide}>
+        <MainLoader />
       </div>
     </div>
   );
