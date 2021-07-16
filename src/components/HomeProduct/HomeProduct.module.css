@@ -11,7 +11,6 @@
 }
 
 .homeProduct img {
-  display: block;
   width: 100%;
 }
 
@@ -51,6 +50,15 @@
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+/* for show or hide */
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
 }
 
 /* mobile view */
