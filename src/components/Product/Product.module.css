@@ -28,6 +28,8 @@
 }
 
 .productDetails p {
+  width: 100%;
+  max-width: 390px;
   font-size: 18px;
   font-weight: 400;
   color: #707070;
@@ -96,4 +98,81 @@
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+.RmFavoriteButton {
+  width: 230px;
+  height: 52px;
+  background-color: #e9533a;
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+/* hide elements */
+.hide {
+  display: none;
+}
+
+@media (max-width: 1150px) {
+  .cartButton,
+  .favoriteButton,
+  .RmFavoriteButton {
+    display: block;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 980px) {
+  .productContent {
+    flex-direction: column;
+  }
+
+  .productDetails {
+    margin-top: 40px;
+    margin-left: 0px;
+  }
+
+  .cartButton,
+  .favoriteButton,
+  .RmFavoriteButton {
+    display: inline-block;
+    margin-bottom: 0px;
+  }
+}
+
+@media (max-width: 600px) {
+  .productContent img {
+    margin-top: 34px;
+  }
+
+  .productDetails h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .productDetails p {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .productDetails h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .sizeButtonsContainer {
+    margin-bottom: 30px;
+  }
+
+  .cartButton,
+  .favoriteButton,
+  .RmFavoriteButton {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
 }
