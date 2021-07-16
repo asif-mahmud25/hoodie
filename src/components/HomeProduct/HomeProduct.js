@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import style from "./HomeProduct.module.css";
+import { useHistory } from "react-router-dom";
 
 //assets import
 import placeholderImg from "../../assets/placeholder-img.svg";
@@ -13,8 +14,22 @@ const HomeProduct = (props) => {
     setLoading(false);
   };
 
+  //for navigation to product page
+  const history = useHistory();
+
+  //go to product page
+  const goToProduct = () => {
+    history.push(`/product/${props.id}`);
+  };
+
+  //add to cart
+  const addToCart = (e) => {
+    e.stopPropagation();
+    console.log("added to cart!");
+  };
+
   return (
-    <div className={style.homeProduct}>
+    <div className={style.homeProduct} onClick={goToProduct}>
       <img
         className={loading ? style.show : style.hide}
         src={placeholderImg}
@@ -30,7 +45,7 @@ const HomeProduct = (props) => {
         <h3>{props.name}</h3>
         <p>{props.description}</p>
         <h2>${props.price}</h2>
-        <button>Add To Cart</button>
+        <button onClick={addToCart}>Add To Cart</button>
       </div>
     </div>
   );
