@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import style from "./Product.module.css";
 import { useParams, useHistory } from "react-router-dom";
 import { db } from "../../firebase";
+import MainLoader from "../Loaders/MainLoader/MainLoader";
+
+//assets import
+import placeholderImg from "../../assets/placeholder-img.svg";
 
 const Product = () => {
   //to get the product id
@@ -9,6 +13,10 @@ const Product = () => {
 
   //for navigation
   const history = useHistory();
+
+  //loading states
+  const [productLoading, setProductLoading] = useState(true);
+  const [imgLoading, setImgLoading] = useState(true);
 
   //product state
   const [product, setProduct] = useState({
@@ -39,6 +47,7 @@ const Product = () => {
           };
 
           setProduct(productHolder);
+          setProductLoading(false);
         } else {
           //if there not such product go to home
           history.push("/");
@@ -46,19 +55,34 @@ const Product = () => {
       })
       .catch((err) => {
         console.log(err);
+        setProductLoading(false);
       });
 
     // eslint-disable-next-line
   }, [params.id]);
+
+  //on image load
+  const showImg = () => {
+    setImgLoading(false);
+  };
 
   //for test
   console.log(product);
   return (
     <div className={style.product}>
       <div className="container">
-        <div className={style.productContent}>
-          <img src={product.imgUrl} alt="product" />
-
+        <div className={productLoading ? style.hide : style.productContent}>
+          <img
+            className={imgLoading ? style.hide : style.show}
+            src={product.imgUrl}
+            alt="product"
+            onLoad={showImg}
+          />
+          <img
+            className={imgLoading ? style.show : style.hide}
+            src={placeholderImg}
+            alt="product"
+          />
           <div className={style.productDetails}>
             <h2>{product.name}</h2>
             <p>{product.description}</p>
@@ -75,6 +99,9 @@ const Product = () => {
               {/* <button>Remove Favorite</button> */}
             </div>
           </div>
+        </div>
+        <div className={productLoading ? style.show : style.hide}>
+          <MainLoader />
         </div>
       </div>
     </div>
