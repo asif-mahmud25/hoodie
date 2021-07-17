@@ -51,6 +51,7 @@ const Home = () => {
           key={el.id}
           id={el.id}
           imageUrl={el.imgM}
+          imageSmallUrl={el.imgS}
           name={el.name}
           description={el.description}
           price={el.price}

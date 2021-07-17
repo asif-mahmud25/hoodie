@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import style from "./HomeProduct.module.css";
 import { useHistory } from "react-router-dom";
 
 //assets import
 import placeholderImg from "../../assets/placeholder-img.svg";
+
+//cart context
+import { CartContext } from "../../context/CartContext";
 
 const HomeProduct = (props) => {
   //loading state for images
@@ -22,10 +25,39 @@ const HomeProduct = (props) => {
     history.push(`/product/${props.id}`);
   };
 
+  //cart context
+  const [cart, setCart] = useContext(CartContext);
+
+  console.log(cart);
+
   //add to cart
   const addToCart = (e) => {
     e.stopPropagation();
-    console.log("added to cart!");
+
+    let itemExits = false;
+
+    //check for item already in cart
+    cart.forEach((el) => {
+      if (el.id === props.id) {
+        itemExits = true;
+      }
+    });
+
+    if (itemExits === false) {
+      setCart([
+        ...cart,
+        {
+          id: props.id,
+          img: props.imageSmallUrl,
+          name: props.name,
+          price: props.price,
+          size: "M",
+          quantity: 1,
+        },
+      ]);
+    } else {
+      console.log("item already in cart!");
+    }
   };
 
   return (
