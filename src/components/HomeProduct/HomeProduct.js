@@ -28,8 +28,6 @@ const HomeProduct = (props) => {
   //cart context
   const [cart, setCart] = useContext(CartContext);
 
-  console.log(cart);
-
   //add to cart
   const addToCart = (e) => {
     e.stopPropagation();
@@ -55,8 +53,12 @@ const HomeProduct = (props) => {
           quantity: 1,
         },
       ]);
+
+      //show item added to cart modal
+      props.showAddedToCartModal();
     } else {
-      console.log("item already in cart!");
+      //show item already in cart modal
+      props.showItemInCartModal();
     }
   };
 

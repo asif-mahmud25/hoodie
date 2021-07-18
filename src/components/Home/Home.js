@@ -8,6 +8,7 @@ import heroImg from "../../assets/heroImage.png";
 //components imports
 import HomeProduct from "../HomeProduct/HomeProduct";
 import MainLoader from "../Loaders/MainLoader/MainLoader";
+import MessageModal from "../Modals/MessageModal/MessageModal";
 
 const Home = () => {
   //product state
@@ -15,6 +16,10 @@ const Home = () => {
 
   //loading state
   const [loading, setLoading] = useState(true);
+
+  //modal states
+  const [addedToCartModal, setAddedToCartModal] = useState(false);
+  const [itemExistInCartModal, setItemExistInCartModal] = useState(false);
 
   //for holding the products
   let allProducts = [];
@@ -55,12 +60,45 @@ const Home = () => {
           name={el.name}
           description={el.description}
           price={el.price}
+          showAddedToCartModal={() => {
+            setAddedToCartModal(true);
+          }}
+          showItemInCartModal={() => {
+            setItemExistInCartModal(true);
+          }}
         />
       );
     });
 
     newArrivalsRender = productsRender.slice(0, 3);
     mostPopularRender = productsRender.slice(3);
+  }
+
+  //modal render logic
+  let showModal = null;
+
+  if (addedToCartModal) {
+    showModal = (
+      <MessageModal
+        modalType="success"
+        text="Item added to cart!"
+        buttonText="Ok"
+        buttonAction={() => {
+          setAddedToCartModal(false);
+        }}
+      />
+    );
+  } else if (itemExistInCartModal) {
+    showModal = (
+      <MessageModal
+        modalType="warning"
+        text="Item already added to cart!"
+        buttonText="Ok"
+        buttonAction={() => {
+          setItemExistInCartModal(false);
+        }}
+      />
+    );
   }
   return (
     <div className={style.home}>
@@ -97,6 +135,7 @@ const Home = () => {
       <div className={loading ? style.show : style.hide}>
         <MainLoader />
       </div>
+      {showModal}
     </div>
   );
 };

@@ -20,10 +20,12 @@ const MessageModal = (props) => {
     <div className={style.messageModal}>
       <div className={style.modalBackdrop}>
         <div className="container">
-          <div className={style.modalBox}>
-            <img src={modalImg} alt="" />
-            <h2>{props.text}</h2>
-            <button onClick={props.buttonAction}>{props.buttonText}</button>
+          <div className={style.modalBoxContainer}>
+            <div className={style.modalBox}>
+              <img src={modalImg} alt="" />
+              <h2>{props.text}</h2>
+              <button onClick={props.buttonAction}>{props.buttonText}</button>
+            </div>
           </div>
         </div>
       </div>
