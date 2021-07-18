@@ -11,7 +11,6 @@
 
 .cartItemContent img {
   width: 100px;
-  display: block;
   align-self: flex-start;
   margin-right: 20px;
 }
@@ -81,4 +80,13 @@
 .cartItemDetailsBox .cartItemAction p {
   color: #e9533a;
   cursor: pointer;
+}
+
+/* hide or show item */
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
 }

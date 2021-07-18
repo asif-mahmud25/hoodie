@@ -56,3 +56,9 @@
   outline: none;
   cursor: pointer;
 }
+
+@media (max-width: 1220px) {
+  .cartContent {
+    flex-direction: column;
+  }
+}
