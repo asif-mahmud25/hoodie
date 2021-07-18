@@ -8,6 +8,7 @@ import NavBar from "../NavBar/NavBar";
 import SideBar from "../SideBar/SideBar";
 import Footer from "../Footer/Footer";
 import Product from "../Product/Product";
+import Cart from "../Cart/Cart";
 
 const AppLayout = () => {
   return (
@@ -18,6 +19,8 @@ const AppLayout = () => {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/product/:id" exact component={Product} />
+          <Route path="/cart" exact component={Cart} />
+          <Redirect to="/" />
         </Switch>
       </div>
       <Footer />
