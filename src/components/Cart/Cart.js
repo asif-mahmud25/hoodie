@@ -16,10 +16,14 @@ const Cart = () => {
 
   //calculate total price
   let totalPrice = 0;
+  let priceSum = 0;
   if (cart.length > 0) {
     cart.forEach((el) => {
-      totalPrice = totalPrice + el.price;
+      priceSum = priceSum + el.price;
     });
+
+    //round to two places
+    totalPrice = Math.round((priceSum + Number.EPSILON) * 100) / 100;
   }
 
   //cart items
@@ -46,7 +50,7 @@ const Cart = () => {
         <div className={style.priceBox}>
           <div className={style.priceTextContainer}>
             <h3>Total Price</h3>
-            <h2>${totalPrice.toFixed(2)}</h2>
+            <h2>${totalPrice}</h2>
           </div>
           <button>Checkout</button>
         </div>
