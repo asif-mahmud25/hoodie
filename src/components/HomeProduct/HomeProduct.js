@@ -46,7 +46,7 @@ const HomeProduct = (props) => {
         ...cart,
         {
           id: props.id,
-          img: props.imageSmallUrl,
+          imgUrl: props.imageSmallUrl,
           name: props.name,
           price: props.price,
           size: "M",
