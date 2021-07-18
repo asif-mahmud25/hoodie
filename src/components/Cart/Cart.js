@@ -25,20 +25,34 @@ const Cart = () => {
       />
     );
   });
+
+  //show a msg when cart is empty
+  let cartPageContent;
+  if (cart.length > 0) {
+    cartPageContent = (
+      <div className={style.cartContent}>
+        <div className={style.cartItemContainer}>{cartItems}</div>
+        <div className={style.priceBox}>
+          <div className={style.priceTextContainer}>
+            <h3>Total Price</h3>
+            <h2>$340.50</h2>
+          </div>
+          <button>Checkout</button>
+        </div>
+      </div>
+    );
+  } else {
+    cartPageContent = (
+      <p className={style.cartEmptyMsg}>
+        You haven't added anything in cart yet!
+      </p>
+    );
+  }
   return (
     <div className={style.cart}>
       <div className="container">
         <h1>YOUR CART</h1>
-        <div className={style.cartContent}>
-          <div className={style.cartItemContainer}>{cartItems}</div>
-          <div className={style.priceBox}>
-            <div className={style.priceTextContainer}>
-              <h3>Total Price</h3>
-              <h2>$340.50</h2>
-            </div>
-            <button>Checkout</button>
-          </div>
-        </div>
+        {cartPageContent}
       </div>
     </div>
   );

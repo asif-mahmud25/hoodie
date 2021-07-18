@@ -57,8 +57,21 @@
   cursor: pointer;
 }
 
+.cartEmptyMsg {
+  font-size: 20px;
+  font-weight: 500;
+  color: black;
+  margin-top: -40px;
+}
+
 @media (max-width: 1220px) {
   .cartContent {
     flex-direction: column;
+  }
+
+  .priceBox {
+    width: 100%;
+    max-width: 580px;
+    margin-top: 20px;
   }
 }
