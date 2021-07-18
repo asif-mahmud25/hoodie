@@ -1,0 +1,84 @@
+.cartItem {
+  width: 100%;
+  max-width: 580px;
+  margin-bottom: 60px;
+}
+
+.cartItemContent {
+  width: 100%;
+  display: flex;
+}
+
+.cartItemContent img {
+  width: 100px;
+  display: block;
+  align-self: flex-start;
+  margin-right: 20px;
+}
+
+.cartItemDetailsBox {
+  flex: 1;
+}
+
+.cartItemInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cartItemInfo h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
+}
+
+.cartItemInfo h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: black;
+}
+
+.cartItemDetailsBox p {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+  margin-top: 4px;
+}
+
+.cartItemAction {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.cartItemAddReduce {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cartItemAddReduce button {
+  width: 30px;
+  height: 30px;
+  background-color: #ededed;
+  font-size: 20px;
+  font-weight: 500;
+  color: black;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.cartItemAddReduce h3 {
+  font-size: 20px;
+  font-weight: 500;
+  color: black;
+  margin: 0 10px;
+}
+
+.cartItemDetailsBox .cartItemAction p {
+  color: #e9533a;
+  cursor: pointer;
+}

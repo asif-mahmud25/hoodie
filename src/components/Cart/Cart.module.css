@@ -23,6 +23,7 @@
   width: 470px;
   padding: 30px 24px;
   border: 1px solid #c4c4c4;
+  align-self: flex-start;
 }
 
 .priceTextContainer {
