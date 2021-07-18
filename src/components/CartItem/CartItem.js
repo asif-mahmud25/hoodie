@@ -67,6 +67,40 @@ const CartItem = (props) => {
       setCart(newCart);
     }
   };
+
+  //decrease product
+  const decreaseProduct = () => {
+    let decrease = false;
+    let editIndex = 0;
+
+    cart.forEach((el, index) => {
+      if (el.id === props.id) {
+        if (el.quantity > 1) {
+          decrease = true;
+          editIndex = index;
+        }
+      }
+    });
+
+    if (decrease) {
+      //copy the cart array
+      let newCart = cart.map((el) => {
+        return { ...el };
+      });
+
+      //update the copied array
+      newCart[editIndex].quantity = newCart[editIndex].quantity - 1;
+
+      let newPrice = newCart[editIndex].price - newCart[editIndex].unitPrice;
+
+      //rounding number to two places
+      newCart[editIndex].price =
+        Math.round((newPrice + Number.EPSILON) * 100) / 100;
+
+      //replace cart with new cart
+      setCart(newCart);
+    }
+  };
   return (
     <div className={style.cartItem}>
       <div className={style.cartItemContent}>
@@ -91,7 +125,7 @@ const CartItem = (props) => {
           <p>Size: {props.size}</p>
           <div className={style.cartItemAction}>
             <div className={style.cartItemAddReduce}>
-              <button>-</button>
+              <button onClick={decreaseProduct}>-</button>
               <h3>{props.quantity}</h3>
               <button onClick={increaseProduct}>+</button>
             </div>
