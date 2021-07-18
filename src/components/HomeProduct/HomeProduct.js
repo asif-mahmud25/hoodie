@@ -49,6 +49,7 @@ const HomeProduct = (props) => {
           imgUrl: props.imageSmallUrl,
           name: props.name,
           price: props.price,
+          unitPrice: props.price,
           size: "M",
           quantity: 1,
         },

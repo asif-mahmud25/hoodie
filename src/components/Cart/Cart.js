@@ -11,6 +11,17 @@ const Cart = () => {
   //cart context
   const [cart, setCart] = useContext(CartContext);
 
+  //for test
+  console.log(cart);
+
+  //calculate total price
+  let totalPrice = 0;
+  if (cart.length > 0) {
+    cart.forEach((el) => {
+      totalPrice = totalPrice + el.price;
+    });
+  }
+
   //cart items
   let cartItems = cart.map((el) => {
     return (
@@ -35,7 +46,7 @@ const Cart = () => {
         <div className={style.priceBox}>
           <div className={style.priceTextContainer}>
             <h3>Total Price</h3>
-            <h2>$340.50</h2>
+            <h2>${totalPrice.toFixed(2)}</h2>
           </div>
           <button>Checkout</button>
         </div>
