@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import style from "./CartItem.module.css";
+
+//cart context import
+import { CartContext } from "../../context/CartContext";
 
 //assets import
 import placeholderImg from "../../assets/placeholder-img-sm.svg";
@@ -7,6 +10,29 @@ import placeholderImg from "../../assets/placeholder-img-sm.svg";
 const CartItem = (props) => {
   //image load state
   const [imgLoading, setImgLoading] = useState(true);
+
+  //cart context
+  const [cart, setCart] = useContext(CartContext);
+
+  //remove from cart
+  const removeFromCart = () => {
+    let itemInCart = false;
+    cart.forEach((el) => {
+      if (el.id === props.id) {
+        itemInCart = true;
+      }
+    });
+
+    if (itemInCart) {
+      let newCart = cart.filter((el) => {
+        if (el.id === props.id) {
+          return false;
+        } else return true;
+      });
+
+      setCart(newCart);
+    }
+  };
   return (
     <div className={style.cartItem}>
       <div className={style.cartItemContent}>
@@ -35,7 +61,7 @@ const CartItem = (props) => {
               <h3>{props.quantity}</h3>
               <button>+</button>
             </div>
-            <p>Remove</p>
+            <p onClick={removeFromCart}>Remove</p>
           </div>
         </div>
       </div>
