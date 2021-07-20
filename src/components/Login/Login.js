@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./Login.module.css";
 
+//component import
+import FormErrorHandler from "../ErrorHandlers/FormErrorHandler/FormErrorHandler";
+
 const Login = () => {
+  //error state
+  const [error, setError] = useState({
+    errorShow: true,
+    errorMsg: "",
+  });
   return (
     <div className={style.login}>
       <div className="container">
         <h1>hoodie.</h1>
+        <div className={error.errorShow ? style.errorMsgContainer : style.hide}>
+          <FormErrorHandler errorMsg="Incorrect user email" />
+        </div>
         <form className={style.loginForm}>
           <label>
             Email

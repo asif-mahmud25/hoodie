@@ -69,6 +69,20 @@
   cursor: pointer;
 }
 
+.errorMsgContainer {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+/* to hide */
+.hide {
+  display: none;
+}
+
 @media (max-width: 600px) {
   .login h1 {
     width: 100%;
@@ -99,5 +113,10 @@
 
   .goToSignUp {
     font-size: 14px;
+  }
+
+  .errorMsgContainer {
+    margin-top: -6px;
+    margin-bottom: 16px;
   }
 }
