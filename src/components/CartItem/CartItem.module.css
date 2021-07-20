@@ -90,3 +90,97 @@
 .show {
   display: block;
 }
+
+.phoneCartItemContent {
+  width: 100%;
+  display: flex;
+}
+
+.phoneCartItemContent img {
+  width: 70px;
+  align-self: flex-start;
+  margin-right: 10px;
+}
+
+.phoneCartItemDetailsBox {
+  flex: 1;
+}
+
+.phoneCartItemInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.phoneCartItemInfo h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: black;
+}
+
+.phoneCartItemDetailsBox .phoneCartItemInfo img {
+  display: block;
+  width: 16px;
+  margin-right: 0px;
+}
+
+.phoneCartItemDetailsBox p {
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+}
+
+.phoneCartItemAction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.phoneCartItemAction h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: black;
+}
+
+.phoneCartItemAddReduce {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.phoneCartItemAddReduce button {
+  width: 26px;
+  height: 26px;
+  background-color: #ededed;
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.phoneCartItemAddReduce h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+  margin: 0 10px;
+}
+
+@media (min-width: 601px) {
+  .phoneCartItemContent {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .cartItemContent {
+    display: none;
+  }
+
+  .cartItem {
+    margin-bottom: 30px;
+  }
+}

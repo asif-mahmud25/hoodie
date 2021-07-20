@@ -75,3 +75,38 @@
     margin-top: 20px;
   }
 }
+
+@media (max-width: 600px) {
+  .cart h1 {
+    font-size: 28px;
+    margin-top: 34px;
+    margin-bottom: 30px;
+  }
+
+  .priceBox {
+    padding: 20px 16px;
+  }
+
+  .priceTextContainer {
+    margin-bottom: 32px;
+  }
+
+  .priceTextContainer h3 {
+    font-size: 16px;
+  }
+
+  .priceTextContainer h2 {
+    font-size: 20px;
+  }
+
+  .priceBox button {
+    font-size: 18px;
+  }
+
+  .cartEmptyMsg {
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
+    margin-top: -20px;
+  }
+}
