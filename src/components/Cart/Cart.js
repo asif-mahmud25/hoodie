@@ -9,7 +9,7 @@ import CartItem from "../CartItem/CartItem";
 
 const Cart = () => {
   //cart context
-  const [cart, setCart] = useContext(CartContext);
+  const [cart] = useContext(CartContext);
 
   //for test
   console.log(cart);
