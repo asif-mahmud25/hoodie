@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import style from "./Product.module.css";
 import { useParams, useHistory } from "react-router-dom";
 import { db } from "../../firebase";
 import MainLoader from "../Loaders/MainLoader/MainLoader";
+
+//cart context import
+import { CartContext } from "../../context/CartContext";
+
+//components import
+import MessageModal from "../Modals/MessageModal/MessageModal";
 
 //assets import
 import placeholderImg from "../../assets/placeholder-img.svg";
@@ -25,13 +31,23 @@ const Product = () => {
   const [product, setProduct] = useState({
     id: "",
     imgUrl: "",
+    imgSmallUrl: "",
     name: "",
     description: "",
     price: "",
   });
 
+  //modal states
+  const [addedToCartModal, setAddedToCartModal] = useState(false);
+  const [itemExistInCartModal, setItemExistInCartModal] = useState(false);
+
+  //cart context
+  const [cart, setCart] = useContext(CartContext);
+
+  //for holding the fetched data
   let productHolder = {};
 
+  //fetch the product from firebase on component load
   useEffect(() => {
     db.collection("products")
       .doc(`${params.id}`)
@@ -44,6 +60,7 @@ const Product = () => {
           productHolder = {
             id: doc.data().id,
             imgUrl: doc.data().imgL,
+            imgSmallUrl: doc.data().imgS,
             name: doc.data().name,
             description: doc.data().description,
             price: doc.data().price,
@@ -52,7 +69,7 @@ const Product = () => {
           setProduct(productHolder);
           setProductLoading(false);
         } else {
-          //if there not such product go to home
+          //if there is no such product go to home
           history.push("/");
         }
       })
@@ -63,6 +80,39 @@ const Product = () => {
 
     // eslint-disable-next-line
   }, [params.id]);
+
+  //add to cart
+  const addToCart = (e) => {
+    let itemExits = false;
+
+    //check for item already in cart
+    cart.forEach((el) => {
+      if (el.id === product.id) {
+        itemExits = true;
+      }
+    });
+
+    if (itemExits === false) {
+      setCart([
+        ...cart,
+        {
+          id: product.id,
+          imgUrl: product.imgSmallUrl,
+          name: product.name,
+          price: product.price,
+          unitPrice: product.price,
+          size: productSize,
+          quantity: 1,
+        },
+      ]);
+
+      //show item added to cart modal
+      setAddedToCartModal(true);
+    } else {
+      //show item already in cart modal
+      setItemExistInCartModal(true);
+    }
+  };
 
   //on image load
   const showImg = () => {
@@ -86,9 +136,37 @@ const Product = () => {
     xLSizeBtn = style.sizeButtonActive;
   }
 
+  //modal render logic
+  let showModal = null;
+
+  if (addedToCartModal) {
+    showModal = (
+      <MessageModal
+        modalType="success"
+        text="Item added to cart!"
+        buttonText="Ok"
+        buttonAction={() => {
+          setAddedToCartModal(false);
+        }}
+      />
+    );
+  } else if (itemExistInCartModal) {
+    showModal = (
+      <MessageModal
+        modalType="warning"
+        text="Item already added to cart!"
+        buttonText="Ok"
+        buttonAction={() => {
+          setItemExistInCartModal(false);
+        }}
+      />
+    );
+  }
+
   //for test
   console.log(product);
   console.log(productSize);
+  console.log(cart);
   return (
     <div className={style.product}>
       <div className="container">
@@ -143,7 +221,9 @@ const Product = () => {
               </button>
             </div>
             <div>
-              <button className={style.cartButton}>Add To Cart</button>
+              <button className={style.cartButton} onClick={addToCart}>
+                Add To Cart
+              </button>
               <button className={style.favoriteButton}>Add To Favorites</button>
               {/* <button>Remove Favorite</button> */}
             </div>
@@ -153,6 +233,7 @@ const Product = () => {
           <MainLoader />
         </div>
       </div>
+      {showModal}
     </div>
   );
 };
