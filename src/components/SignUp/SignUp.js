@@ -1,32 +1,41 @@
 import React, { useState } from "react";
-import style from "./Login.module.css";
+import style from "./SignUp.module.css";
 import { useHistory } from "react-router-dom";
 
 //component import
 import FormErrorHandler from "../ErrorHandlers/FormErrorHandler/FormErrorHandler";
 
-const Login = () => {
+const SignUp = () => {
   //error state
   const [error, setError] = useState({
     errorShow: true,
     errorMsg: "",
   });
 
-  //for navigate to sign up
+  //for navigation
   const history = useHistory();
 
-  //go to sign up
-  const goToSignUp = () => {
-    history.push("/sign-up");
+  //go to login
+  const goToLogin = () => {
+    history.push("/login");
   };
   return (
-    <div className={style.login}>
+    <div className={style.signUp}>
       <div className="container">
         <h1>hoodie.</h1>
         <div className={error.errorShow ? style.errorMsgContainer : style.hide}>
           <FormErrorHandler errorMsg="Incorrect user email" />
         </div>
-        <form className={style.loginForm}>
+        <form className={style.signUpForm}>
+          <label>
+            Name
+            <input
+              type="text"
+              required
+              placeholder="Enter your name"
+              maxLength="30"
+            />
+          </label>
           <label>
             Email
             <input
@@ -41,18 +50,18 @@ const Login = () => {
             <input
               type="password"
               required
-              placeholder="Enter your password"
+              placeholder="Create a password"
               maxLength="30"
             />
           </label>
-          <button type="submit">Log In</button>
+          <button type="submit">Sign Up</button>
         </form>
-        <p className={style.goToSignUp}>
-          Don't have an account? Go to <span onClick={goToSignUp}>Sign Up</span>
+        <p className={style.goToLogin}>
+          Already have an account? Go to <span onClick={goToLogin}>Log In</span>
         </p>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default SignUp;

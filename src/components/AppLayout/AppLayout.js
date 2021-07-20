@@ -10,6 +10,7 @@ import Footer from "../Footer/Footer";
 import Product from "../Product/Product";
 import Cart from "../Cart/Cart";
 import Login from "../Login/Login";
+import SignUp from "../SignUp/SignUp";
 
 const AppLayout = () => {
   return (
@@ -22,6 +23,7 @@ const AppLayout = () => {
           <Route path="/product/:id" exact component={Product} />
           <Route path="/cart" exact component={Cart} />
           <Route path="/login" exact component={Login} />
+          <Route path="/sign-up" exact component={SignUp} />
           <Redirect to="/" />
         </Switch>
       </div>

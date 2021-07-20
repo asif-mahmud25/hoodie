@@ -1,0 +1,122 @@
+.signUp {
+  width: 100%;
+}
+
+.signUp h1 {
+  width: 100%;
+  font-size: 56px;
+  font-weight: 800;
+  color: black;
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 50px;
+}
+
+.signUpForm {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.signUpForm label {
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
+}
+
+.signUpForm input {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #707070;
+  padding-left: 16px;
+  display: block;
+  margin-bottom: 32px;
+  margin-top: 8px;
+  font-size: 18px;
+  color: black;
+  outline: none;
+}
+
+.signUpForm input::placeholder {
+  font-size: 18px;
+  font-weight: 400;
+  color: #707070;
+}
+
+.signUpForm button {
+  width: 100%;
+  height: 52px;
+  background-color: black;
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.goToLogin {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+  text-align: center;
+  margin-top: 24px;
+}
+
+.goToLogin span {
+  color: #fe8800;
+  cursor: pointer;
+}
+
+.errorMsgContainer {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+/* to hide */
+.hide {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .signUp h1 {
+    width: 100%;
+    font-size: 46px;
+    font-weight: 800;
+    color: black;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+
+  .signUpForm label {
+    font-size: 16px;
+  }
+
+  .signUpForm input {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .signUpForm input::placeholder {
+    font-size: 16px;
+  }
+
+  .signUpForm button {
+    font-size: 18px;
+  }
+
+  .goToLogin {
+    font-size: 14px;
+  }
+
+  .errorMsgContainer {
+    margin-top: -6px;
+    margin-bottom: 16px;
+  }
+}

@@ -31,4 +31,9 @@
   .formErrorHandlerContent p {
     font-size: 14px;
   }
+
+  .formErrorHandlerContent img {
+    width: 18px;
+    height: 18px;
+  }
 }
