@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 //component import
 import FormErrorHandler from "../ErrorHandlers/FormErrorHandler/FormErrorHandler";
+import FullPageLoader from "../Loaders/FullPageLoader/FullPageLoader";
 
 //firebase auth
 import { auth } from "../../firebase";
@@ -19,6 +20,9 @@ const Login = () => {
     errorMsg: "",
   });
 
+  //loading state
+  const [loading, setLoading] = useState(false);
+
   //for navigate to sign up
   const history = useHistory();
 
@@ -30,19 +34,29 @@ const Login = () => {
   //login user
   const loginUser = (event) => {
     event.preventDefault();
+
+    setLoading(true);
+
+    //hide error box
+    setError({ errorShow: false, errorMsg: "" });
+
+    //login with firebase auth
     auth
       .signInWithEmailAndPassword(email, password)
       .then((res) => {
         console.log(res);
 
-        //hide error box
-        setError({ errorShow: false, errorMsg: "" });
+        //stop loading
+        setLoading(false);
 
         //empty the inputs
         setEmail("");
         setPassword("");
       })
       .catch((err) => {
+        //stop loading
+        setLoading(false);
+
         //handle errors
         if (err.code === "auth/user-not-found") {
           setError({
@@ -72,6 +86,12 @@ const Login = () => {
         console.log(err.message);
       });
   };
+
+  //showing loader when needed
+  let fullLoader = null;
+  if (loading) {
+    fullLoader = <FullPageLoader />;
+  }
 
   return (
     <div className={style.login}>
@@ -113,6 +133,7 @@ const Login = () => {
           Don't have an account? Go to <span onClick={goToSignUp}>Sign Up</span>
         </p>
       </div>
+      {fullLoader}
     </div>
   );
 };

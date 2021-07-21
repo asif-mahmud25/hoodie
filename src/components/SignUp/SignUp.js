@@ -5,6 +5,7 @@ import { auth } from "../../firebase";
 
 //component import
 import FormErrorHandler from "../ErrorHandlers/FormErrorHandler/FormErrorHandler";
+import FullPageLoader from "../Loaders/FullPageLoader/FullPageLoader";
 
 const SignUp = () => {
   //input states
@@ -16,6 +17,9 @@ const SignUp = () => {
     errorShow: false,
     errorMsg: "",
   });
+
+  //loading state
+  const [loading, setLoading] = useState(false);
 
   //for navigation
   const history = useHistory();
@@ -29,6 +33,8 @@ const SignUp = () => {
   const signUpUser = (event) => {
     event.preventDefault();
 
+    setLoading(true);
+
     //hide error box
     setError({
       errorShow: false,
@@ -39,10 +45,21 @@ const SignUp = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {
+        //stop loading
+        setLoading(false);
+
+        //empty the inputs
+        setEmail("");
+        setPassword("");
+
+        //for test
         console.log(res);
         console.log(res.user);
       })
       .catch((err) => {
+        //stop loading
+        setLoading(false);
+
         //handle errors
         if (err.code === "auth/email-already-in-use") {
           setError({
@@ -72,6 +89,13 @@ const SignUp = () => {
         console.log(err.message);
       });
   };
+
+  //showing loader when needed
+  let fullLoader = null;
+  if (loading) {
+    fullLoader = <FullPageLoader />;
+  }
+
   return (
     <div className={style.signUp}>
       <div className="container">
@@ -112,6 +136,7 @@ const SignUp = () => {
           Already have an account? Go to <span onClick={goToLogin}>Log In</span>
         </p>
       </div>
+      {fullLoader}
     </div>
   );
 };
