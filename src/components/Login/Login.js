@@ -5,7 +5,14 @@ import { useHistory } from "react-router-dom";
 //component import
 import FormErrorHandler from "../ErrorHandlers/FormErrorHandler/FormErrorHandler";
 
+//firebase auth
+import { auth } from "../../firebase";
+
 const Login = () => {
+  //input states
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   //error state
   const [error, setError] = useState({
     errorShow: true,
@@ -19,6 +26,15 @@ const Login = () => {
   const goToSignUp = () => {
     history.push("/sign-up");
   };
+
+  //login user
+  const loginUser = (event) => {
+    event.preventDefault();
+    auth.signInWithEmailAndPassword(email, password).then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
     <div className={style.login}>
       <div className="container">
@@ -26,7 +42,7 @@ const Login = () => {
         <div className={error.errorShow ? style.errorMsgContainer : style.hide}>
           <FormErrorHandler errorMsg="Incorrect user email" />
         </div>
-        <form className={style.loginForm}>
+        <form className={style.loginForm} onSubmit={loginUser}>
           <label>
             Email
             <input
@@ -34,6 +50,10 @@ const Login = () => {
               required
               placeholder="Enter your email"
               maxLength="40"
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
             />
           </label>
           <label>
@@ -43,6 +63,10 @@ const Login = () => {
               required
               placeholder="Enter your password"
               maxLength="30"
+              value={password}
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
             />
           </label>
           <button type="submit">Log In</button>
