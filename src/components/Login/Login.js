@@ -15,7 +15,7 @@ const Login = () => {
 
   //error state
   const [error, setError] = useState({
-    errorShow: true,
+    errorShow: false,
     errorMsg: "",
   });
 
@@ -30,9 +30,47 @@ const Login = () => {
   //login user
   const loginUser = (event) => {
     event.preventDefault();
-    auth.signInWithEmailAndPassword(email, password).then((res) => {
-      console.log(res);
-    });
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((res) => {
+        console.log(res);
+
+        //hide error box
+        setError({ errorShow: false, errorMsg: "" });
+
+        //empty the inputs
+        setEmail("");
+        setPassword("");
+      })
+      .catch((err) => {
+        //handle errors
+        if (err.code === "auth/user-not-found") {
+          setError({
+            errorShow: true,
+            errorMsg: "User not found",
+          });
+        } else if (err.code === "auth/invalid-email") {
+          setError({
+            errorShow: true,
+            errorMsg: "Email is invalid",
+          });
+        } else if (err.code === "auth/wrong-password") {
+          setError({
+            errorShow: true,
+            errorMsg: "Password is not correct",
+          });
+        } else {
+          setError({
+            errorShow: true,
+            errorMsg: "Something went wrong",
+          });
+        }
+
+        //for test
+        console.log(err);
+        console.log(err.code);
+        console.log(err.message);
+      });
   };
 
   return (
@@ -40,7 +78,7 @@ const Login = () => {
       <div className="container">
         <h1>hoodie.</h1>
         <div className={error.errorShow ? style.errorMsgContainer : style.hide}>
-          <FormErrorHandler errorMsg="Incorrect user email" />
+          <FormErrorHandler errorMsg={error.errorMsg} />
         </div>
         <form className={style.loginForm} onSubmit={loginUser}>
           <label>
