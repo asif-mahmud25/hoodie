@@ -185,7 +185,7 @@ const Product = () => {
           <div className={style.productDetails}>
             <h2>{product.name}</h2>
             <p>{product.description}</p>
-            <h1>{product.price}</h1>
+            <h1>${product.price}</h1>
             <div className={style.sizeButtonsContainer}>
               <button
                 className={sSizeBtn}
