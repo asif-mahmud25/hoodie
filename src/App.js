@@ -12,6 +12,9 @@ import { AuthContext } from "./context/AuthContext";
 //firebase auth import
 import { auth } from "./firebase";
 
+//firebase db import
+import { db } from "./firebase";
+
 function App() {
   //auth context
   const [, setUser] = useContext(AuthContext);
@@ -32,6 +35,29 @@ function App() {
 
         //set auth context
         setUser(currentUser);
+
+        //set user data in db if it's a new user
+        db.collection("users")
+          .doc(authUser.uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              console.log("Welcome back!");
+            } else {
+              db.collection("users")
+                .doc(authUser.uid)
+                .set({ userId: authUser.uid, userEmail: authUser.email })
+                .then((res) => {
+                  console.log("user set");
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       } else {
         console.log("logged out!");
 
