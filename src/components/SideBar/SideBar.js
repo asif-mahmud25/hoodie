@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import style from "./SideBar.module.css";
+
+//auth context import
+import { AuthContext } from "../../context/AuthContext";
 
 //assets imports
 import menuBars from "../../assets/menu-bars.svg";
 
 const SideBar = () => {
   const [sideBarOpen, setSidebarOpen] = useState(false);
+
+  //auth context
+  const [user, setUser] = useContext(AuthContext);
 
   //open sidebar
   const openSidebar = () => {
@@ -18,7 +24,29 @@ const SideBar = () => {
     setSidebarOpen(false);
   };
 
-  let navItems = (
+  let authenticatedLinks = (
+    <nav>
+      <ul>
+        <li onClick={closeSidebar}>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        <li onClick={closeSidebar}>
+          <NavLink to="/favorites">Favorites</NavLink>
+        </li>
+        <li onClick={closeSidebar}>
+          <NavLink to="/cart">Cart</NavLink>
+        </li>
+        <li onClick={closeSidebar}>
+          <NavLink to="/orders">Orders</NavLink>
+        </li>
+        <li onClick={closeSidebar}>
+          <NavLink to="/profile">Profile</NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
+
+  let visitorLinks = (
     <nav>
       <ul>
         <li onClick={closeSidebar}>
@@ -38,6 +66,13 @@ const SideBar = () => {
       </ul>
     </nav>
   );
+
+  let navItems;
+  if (user.loggedIn) {
+    navItems = authenticatedLinks;
+  } else {
+    navItems = visitorLinks;
+  }
   return (
     <div className={style.sideBar}>
       <div className={style.sideBarHeader}>

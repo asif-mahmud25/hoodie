@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import style from "./AppLayout.module.css";
 import { Route, Switch, Redirect } from "react-router-dom";
+
+//auth context import
+import { AuthContext } from "../../context/AuthContext";
 
 //components imports
 import Home from "../Home/Home";
@@ -13,20 +16,40 @@ import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 
 const AppLayout = () => {
+  //auth context
+  const [user] = useContext(AuthContext);
+
+  let authenticatiedRoutes = (
+    <Switch>
+      <Route path="/" exact component={Home} />
+      <Route path="/product/:id" exact component={Product} />
+      <Route path="/cart" exact component={Cart} />
+      <Redirect to="/" />
+    </Switch>
+  );
+
+  let visitorRoutes = (
+    <Switch>
+      <Route path="/" exact component={Home} />
+      <Route path="/product/:id" exact component={Product} />
+      <Route path="/cart" exact component={Cart} />
+      <Route path="/login" exact component={Login} />
+      <Route path="/sign-up" exact component={SignUp} />
+      <Redirect to="/" />
+    </Switch>
+  );
+
+  let routesUsed;
+  if (user.loggedIn) {
+    routesUsed = authenticatiedRoutes;
+  } else {
+    routesUsed = visitorRoutes;
+  }
   return (
     <div className={style.appLayout}>
       <NavBar />
       <SideBar />
-      <div className={style.appLayoutContainer}>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/product/:id" exact component={Product} />
-          <Route path="/cart" exact component={Cart} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/sign-up" exact component={SignUp} />
-          <Redirect to="/" />
-        </Switch>
-      </div>
+      <div className={style.appLayoutContainer}>{routesUsed}</div>
       <Footer />
     </div>
   );
