@@ -17,19 +17,26 @@ function App() {
   const [, setUser] = useContext(AuthContext);
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
+    auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
         console.log("logged in");
-        console.log(user);
+
+        let currentUser = {
+          loggedIn: true,
+          userId: authUser.uid,
+          userEmail: authUser.email,
+        };
+
+        //save to local storage
+        localStorage.setItem("user", JSON.stringify(currentUser));
 
         //set auth context
-        setUser({
-          loggedIn: true,
-          userId: user.uid,
-          userEmail: user.email,
-        });
+        setUser(currentUser);
       } else {
         console.log("logged out!");
+
+        //clear local storage
+        localStorage.clear();
 
         //set auth context
         setUser({
