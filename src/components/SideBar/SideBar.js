@@ -12,7 +12,7 @@ const SideBar = () => {
   const [sideBarOpen, setSidebarOpen] = useState(false);
 
   //auth context
-  const [user, setUser] = useContext(AuthContext);
+  const [user] = useContext(AuthContext);
 
   //open sidebar
   const openSidebar = () => {

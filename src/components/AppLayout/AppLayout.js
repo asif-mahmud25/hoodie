@@ -14,6 +14,7 @@ import Product from "../Product/Product";
 import Cart from "../Cart/Cart";
 import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
+import Profile from "../Profile/Profile";
 
 const AppLayout = () => {
   //auth context
@@ -24,6 +25,7 @@ const AppLayout = () => {
       <Route path="/" exact component={Home} />
       <Route path="/product/:id" exact component={Product} />
       <Route path="/cart" exact component={Cart} />
+      <Route path="/profile" exact component={Profile} />
       <Redirect to="/" />
     </Switch>
   );
