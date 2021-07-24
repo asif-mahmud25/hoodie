@@ -11,14 +11,14 @@ import OrderItem from "../OrderItem/OrderItem";
 
 const Checkout = () => {
   //input states
-  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
-  //error state
+  //input error state
   const [error, setError] = useState({
-    errorShow: true,
+    errorShow: false,
     errorMsg: "",
   });
 
@@ -50,6 +50,41 @@ const Checkout = () => {
     );
   });
 
+  //regular expressions for inputs
+  const nameRegExp = /^[a-z ,.'-]+$/i;
+  const phoneRegExp = /^\d{10,14}$/;
+  const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  //submit user order
+  const submitOrder = (event) => {
+    event.preventDefault();
+
+    //check for input errors
+    if (nameRegExp.test(userName) === false) {
+      setError({
+        errorShow: true,
+        errorMsg: "Invalid name",
+      });
+    } else if (emailRegExp.test(email) === false) {
+      setError({
+        errorShow: true,
+        errorMsg: "Invalid email",
+      });
+    } else if (phoneRegExp.test(phone) === false) {
+      setError({
+        errorShow: true,
+        errorMsg: "Invalid phone number",
+      });
+    } else {
+      setError({
+        errorShow: false,
+        errorMsg: "",
+      });
+      //submit the order here
+      console.log("order submitted");
+    }
+  };
+
   return (
     <div className={style.checkout}>
       <div className="container">
@@ -62,9 +97,9 @@ const Checkout = () => {
             <div
               className={error.errorShow ? style.errorMsgContainer : style.hide}
             >
-              <FormErrorHandler errorMsg="Invalid name" />
+              <FormErrorHandler errorMsg={error.errorMsg} />
             </div>
-            <form className={style.checkoutForm}>
+            <form className={style.checkoutForm} onSubmit={submitOrder}>
               <label>
                 Name
                 <input
@@ -72,9 +107,9 @@ const Checkout = () => {
                   required
                   placeholder="Enter your name"
                   maxLength="30"
-                  value={name}
+                  value={userName}
                   onChange={(event) => {
-                    setName(event.target.value);
+                    setUserName(event.target.value);
                   }}
                 />
               </label>
