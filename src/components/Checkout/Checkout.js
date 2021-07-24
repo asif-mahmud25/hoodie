@@ -7,6 +7,7 @@ import { CartContext } from "../../context/CartContext";
 
 //components import
 import FormErrorHandler from "../ErrorHandlers/FormErrorHandler/FormErrorHandler";
+import OrderItem from "../OrderItem/OrderItem";
 
 const Checkout = () => {
   //input states
@@ -33,6 +34,21 @@ const Checkout = () => {
       history.replace("/");
     }
   }, []);
+
+  //order items render
+  let orderItems = cart.map((el) => {
+    return (
+      <OrderItem
+        key={el.id}
+        id={el.id}
+        imgUrl={el.imgUrl}
+        name={el.name}
+        price={el.price}
+        size={el.size}
+        quantity={el.quantity}
+      />
+    );
+  });
 
   return (
     <div className={style.checkout}>
@@ -103,6 +119,15 @@ const Checkout = () => {
               </label>
               <button type="submit">Place Order</button>
             </form>
+          </div>
+          <div className={style.orderBox}>
+            <h3>Your order</h3>
+            {orderItems}
+            <hr />
+            <div className={style.totalPrice}>
+              <h3>Total Price</h3>
+              <h3>$345.56</h3>
+            </div>
           </div>
         </div>
       </div>

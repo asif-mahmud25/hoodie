@@ -17,9 +17,25 @@
   margin-bottom: 60px;
 }
 
+.checkoutContent {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 400px;
+}
+
 .checkoutForm {
   width: 100%;
   max-width: 400px;
+}
+
+.orderBox {
+  width: 100%;
+  max-width: 460px;
 }
 
 .checkoutForm label {
@@ -65,12 +81,61 @@
   margin-bottom: 20px;
 }
 
+.orderBox h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.orderBox hr {
+  background-color: #c4c4c4;
+  display: block;
+  height: 1px;
+  border: 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.totalPrice {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.totalPrice h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: black;
+}
+
 /* to hide */
 .hide {
   display: none;
 }
 
+@media (max-width: 1000px) {
+  .checkoutContent {
+    flex-direction: column;
+  }
+
+  .orderBox {
+    margin-top: 40px;
+  }
+}
+
 @media (max-width: 600px) {
+  .pageHeading h1 {
+    font-size: 28px;
+    margin-top: 34px;
+    margin-bottom: 16px;
+  }
+
+  .pageHeading p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+
   .checkoutForm label {
     font-size: 16px;
   }
@@ -86,5 +151,13 @@
 
   .checkoutForm button {
     font-size: 18px;
+  }
+
+  .orderBox h3 {
+    font-size: 20px;
+  }
+
+  .totalPrice h3 {
+    font-size: 20px;
   }
 }
