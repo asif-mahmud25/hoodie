@@ -50,6 +50,18 @@ const Checkout = () => {
     );
   });
 
+  //calculate total price
+  let totalPrice = 0;
+  let priceSum = 0;
+  if (cart.length > 0) {
+    cart.forEach((el) => {
+      priceSum = priceSum + el.price;
+    });
+
+    //round to two places
+    totalPrice = Math.round((priceSum + Number.EPSILON) * 100) / 100;
+  }
+
   //regular expressions for inputs
   const nameRegExp = /^[a-z ,.'-]+$/i;
   const phoneRegExp = /^\d{10,14}$/;
@@ -161,7 +173,7 @@ const Checkout = () => {
             <hr />
             <div className={style.totalPrice}>
               <h3>Total Price</h3>
-              <h3>$345.56</h3>
+              <h3>${totalPrice}</h3>
             </div>
           </div>
         </div>
