@@ -5,9 +5,21 @@ import { useHistory } from "react-router-dom";
 //cart context import
 import { CartContext } from "../../context/CartContext";
 
+//auth context import
+import { AuthContext } from "../../context/AuthContext";
+
+//import firebase
+import firebase from "firebase/app";
+
 //components import
 import FormErrorHandler from "../ErrorHandlers/FormErrorHandler/FormErrorHandler";
 import OrderItem from "../OrderItem/OrderItem";
+import FullPageLoader from "../Loaders/FullPageLoader/FullPageLoader";
+import ActionModal from "../Modals/ActionModal/ActionModal";
+import MessageModal from "../Modals/MessageModal/MessageModal";
+
+//db import
+import { db } from "../../firebase";
 
 const Checkout = () => {
   //input states
@@ -22,8 +34,18 @@ const Checkout = () => {
     errorMsg: "",
   });
 
+  //loading state
+  const [loading, setLoading] = useState(false);
+
+  //modal states
+  const [orderSuccessModal, setOrderSuccessModal] = useState(false);
+  const [orderFailedModal, setOrderFailedModal] = useState(false);
+
   //cart context
-  const [cart] = useContext(CartContext);
+  const [cart, setCart] = useContext(CartContext);
+
+  //auth context
+  const [user] = useContext(AuthContext);
 
   //for navigation
   const history = useHistory();
@@ -92,10 +114,91 @@ const Checkout = () => {
         errorShow: false,
         errorMsg: "",
       });
-      //submit the order here
-      console.log("order submitted");
+
+      setLoading(true);
+
+      //submitting the order here
+      db.collection("users")
+        .doc(user.userId)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            //make the order
+            db.collection("users")
+              .doc(user.userId)
+              .collection("orders")
+              .add({
+                userName: userName,
+                userEmail: email,
+                userPhone: phone,
+                userAddress: address,
+                timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+                orderItems: cart,
+              })
+              .then((res) => {
+                setLoading(false);
+                setOrderSuccessModal(true);
+                console.log("order submitted");
+              })
+              .catch((err) => {
+                setLoading(false);
+                setOrderFailedModal(true);
+                console.log(err);
+              });
+          } else {
+            setLoading(false);
+            setOrderFailedModal(true);
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          setOrderFailedModal(true);
+          console.log(err);
+        });
     }
   };
+
+  //showing loader when needed
+  let fullLoader = null;
+  if (loading) {
+    fullLoader = <FullPageLoader />;
+  }
+
+  //modal show logic
+  let showModal = null;
+  if (orderSuccessModal) {
+    showModal = (
+      <ActionModal
+        modalType="success"
+        text="Your order has been placed!"
+        buttonOneText="Go To Orders"
+        buttonTwoText="Close"
+        buttonOneAction={() => {
+          setOrderSuccessModal(false);
+          setCart([]);
+          history.replace("/orders");
+        }}
+        buttonTwoAction={() => {
+          setOrderSuccessModal(false);
+          setCart([]);
+          history.replace("/");
+        }}
+      />
+    );
+  } else if (orderFailedModal) {
+    showModal = (
+      <MessageModal
+        modalType="failed"
+        text="Opps, something went wrong!"
+        buttonText="Try Later"
+        buttonAction={() => {
+          setOrderFailedModal(false);
+          setCart([]);
+          history.replace("/");
+        }}
+      />
+    );
+  }
 
   return (
     <div className={style.checkout}>
@@ -178,6 +281,8 @@ const Checkout = () => {
           </div>
         </div>
       </div>
+      {showModal}
+      {fullLoader}
     </div>
   );
 };

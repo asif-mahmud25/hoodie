@@ -16,6 +16,7 @@ import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 import Profile from "../Profile/Profile";
 import Checkout from "../Checkout/Checkout";
+import Orders from "../Orders/Orders";
 
 const AppLayout = () => {
   //auth context
@@ -28,6 +29,7 @@ const AppLayout = () => {
       <Route path="/cart" exact component={Cart} />
       <Route path="/profile" exact component={Profile} />
       <Route path="/checkout" exact component={Checkout} />
+      <Route path="/orders" exact component={Orders} />
       <Redirect to="/" />
     </Switch>
   );
