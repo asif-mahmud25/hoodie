@@ -134,11 +134,11 @@ const Checkout = () => {
                 userAddress: address,
                 timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
                 orderItems: cart,
+                orderTotalPrice: totalPrice,
               })
               .then((res) => {
                 setLoading(false);
                 setOrderSuccessModal(true);
-                console.log("order submitted");
               })
               .catch((err) => {
                 setLoading(false);
