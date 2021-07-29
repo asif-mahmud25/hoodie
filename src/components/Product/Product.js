@@ -10,6 +10,7 @@ import { AuthContext } from "../../context/AuthContext";
 import MessageModal from "../Modals/MessageModal/MessageModal";
 import MainLoader from "../Loaders/MainLoader/MainLoader";
 import FullPageLoader from "../Loaders/FullPageLoader/FullPageLoader";
+import ActionModal from "../Modals/ActionModal/ActionModal";
 
 //firestore db import
 import { db } from "../../firebase";
@@ -45,9 +46,11 @@ const Product = () => {
   //modal states
   const [addedToCartModal, setAddedToCartModal] = useState(false);
   const [itemExistInCartModal, setItemExistInCartModal] = useState(false);
+  const [productFetchFailedModal, setProductFetchFailedModal] = useState(false);
   const [addToFavSuccessModal, setAddToFavSuccessModal] = useState(false);
   const [addToFavFailedModal, setAddToFavFailedModal] = useState(false);
   const [alreadyInFavModal, setAlreadyInFavModal] = useState(false);
+  const [userAuthenticateModal, setUserAuthenticateModal] = useState(false);
 
   //cart context
   const [cart, setCart] = useContext(CartContext);
@@ -78,12 +81,13 @@ const Product = () => {
           setProductLoading(false);
         } else {
           //if there is no such product go to home
-          history.push("/");
+          history.replace("/");
         }
       })
       .catch((err) => {
         console.log(err);
         setProductLoading(false);
+        setProductFetchFailedModal(true);
       });
 
     // eslint-disable-next-line
@@ -127,54 +131,60 @@ const Product = () => {
     //show loader
     setAddToFavLoading(true);
 
-    db.collection("users")
-      .doc(user.userId)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          db.collection("users")
-            .doc(user.userId)
-            .collection("favorites")
-            .doc(product.id)
-            .get()
-            .then((doc) => {
-              if (doc.exists) {
-                console.log("alredy added to favorites!");
-                setAlreadyInFavModal(true);
+    //check for if user is logged in
+    if (user.userId) {
+      db.collection("users")
+        .doc(user.userId)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            db.collection("users")
+              .doc(user.userId)
+              .collection("favorites")
+              .doc(product.id)
+              .get()
+              .then((doc) => {
+                if (doc.exists) {
+                  console.log("alredy added to favorites!");
+                  setAlreadyInFavModal(true);
+                  setAddToFavLoading(false);
+                } else {
+                  db.collection("users")
+                    .doc(user.userId)
+                    .collection("favorites")
+                    .doc(product.id)
+                    .set({ ...product, size: productSize })
+                    .then((res) => {
+                      console.log("added to favorites!");
+                      setAddToFavSuccessModal(true);
+                      setAddToFavLoading(false);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                      setAddToFavFailedModal(true);
+                      setAddToFavLoading(false);
+                    });
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                setAddToFavFailedModal(true);
                 setAddToFavLoading(false);
-              } else {
-                db.collection("users")
-                  .doc(user.userId)
-                  .collection("favorites")
-                  .doc(product.id)
-                  .set({ ...product, size: productSize })
-                  .then((res) => {
-                    console.log("added to favorites!");
-                    setAddToFavSuccessModal(true);
-                    setAddToFavLoading(false);
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                    setAddToFavFailedModal(true);
-                    setAddToFavLoading(false);
-                  });
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-              setAddToFavFailedModal(true);
-              setAddToFavLoading(false);
-            });
-        } else {
+              });
+          } else {
+            setAddToFavFailedModal(true);
+            setAddToFavLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
           setAddToFavFailedModal(true);
           setAddToFavLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setAddToFavFailedModal(true);
-        setAddToFavLoading(false);
-      });
+        });
+    } else {
+      setAddToFavLoading(false);
+      setUserAuthenticateModal(true);
+    }
   };
 
   //on image load
@@ -254,6 +264,34 @@ const Product = () => {
         buttonText="Ok"
         buttonAction={() => {
           setAlreadyInFavModal(false);
+        }}
+      />
+    );
+  } else if (productFetchFailedModal) {
+    showModal = (
+      <MessageModal
+        modalType="failed"
+        text="Unable to get this product!"
+        buttonText="Ok"
+        buttonAction={() => {
+          setProductFetchFailedModal(false);
+          history.replace("/");
+        }}
+      />
+    );
+  } else if (userAuthenticateModal) {
+    showModal = (
+      <ActionModal
+        modalType="warning"
+        text="Login or signup to add to favorites!"
+        buttonOneText="Login or Signup"
+        buttonTwoText="Close"
+        buttonOneAction={() => {
+          setUserAuthenticateModal(false);
+          history.push("/sign-up");
+        }}
+        buttonTwoAction={() => {
+          setUserAuthenticateModal(false);
         }}
       />
     );
