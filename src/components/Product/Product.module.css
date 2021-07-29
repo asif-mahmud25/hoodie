@@ -99,18 +99,6 @@
   cursor: pointer;
 }
 
-.RmFavoriteButton {
-  width: 230px;
-  height: 52px;
-  background-color: #e9533a;
-  font-size: 20px;
-  font-weight: 500;
-  color: white;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
 /* hide/show elements */
 .hide {
   display: none;

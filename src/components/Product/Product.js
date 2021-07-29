@@ -1,14 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
 import style from "./Product.module.css";
 import { useParams, useHistory } from "react-router-dom";
-import { db } from "../../firebase";
-import MainLoader from "../Loaders/MainLoader/MainLoader";
 
-//cart context import
+//context import
 import { CartContext } from "../../context/CartContext";
+import { AuthContext } from "../../context/AuthContext";
 
 //components import
 import MessageModal from "../Modals/MessageModal/MessageModal";
+import MainLoader from "../Loaders/MainLoader/MainLoader";
+import FullPageLoader from "../Loaders/FullPageLoader/FullPageLoader";
+
+//firestore db import
+import { db } from "../../firebase";
 
 //assets import
 import placeholderImg from "../../assets/placeholder-img.svg";
@@ -23,6 +27,7 @@ const Product = () => {
   //loading states
   const [productLoading, setProductLoading] = useState(true);
   const [imgLoading, setImgLoading] = useState(true);
+  const [addToFavLoading, setAddToFavLoading] = useState(false);
 
   //product size state
   const [productSize, setProductSize] = useState("M");
@@ -40,9 +45,15 @@ const Product = () => {
   //modal states
   const [addedToCartModal, setAddedToCartModal] = useState(false);
   const [itemExistInCartModal, setItemExistInCartModal] = useState(false);
+  const [addToFavSuccessModal, setAddToFavSuccessModal] = useState(false);
+  const [addToFavFailedModal, setAddToFavFailedModal] = useState(false);
+  const [alreadyInFavModal, setAlreadyInFavModal] = useState(false);
 
   //cart context
   const [cart, setCart] = useContext(CartContext);
+
+  //auth context
+  const [user] = useContext(AuthContext);
 
   //for holding the fetched data
   let productHolder = {};
@@ -54,9 +65,6 @@ const Product = () => {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          //for test
-          console.log(doc.data());
-
           productHolder = {
             id: doc.data().id,
             imgUrl: doc.data().imgL,
@@ -114,6 +122,61 @@ const Product = () => {
     }
   };
 
+  //add to favorites in the db
+  const addToFavorites = () => {
+    //show loader
+    setAddToFavLoading(true);
+
+    db.collection("users")
+      .doc(user.userId)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          db.collection("users")
+            .doc(user.userId)
+            .collection("favorites")
+            .doc(product.id)
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                console.log("alredy added to favorites!");
+                setAlreadyInFavModal(true);
+                setAddToFavLoading(false);
+              } else {
+                db.collection("users")
+                  .doc(user.userId)
+                  .collection("favorites")
+                  .doc(product.id)
+                  .set({ ...product, size: productSize })
+                  .then((res) => {
+                    console.log("added to favorites!");
+                    setAddToFavSuccessModal(true);
+                    setAddToFavLoading(false);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    setAddToFavFailedModal(true);
+                    setAddToFavLoading(false);
+                  });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              setAddToFavFailedModal(true);
+              setAddToFavLoading(false);
+            });
+        } else {
+          setAddToFavFailedModal(true);
+          setAddToFavLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setAddToFavFailedModal(true);
+        setAddToFavLoading(false);
+      });
+  };
+
   //on image load
   const showImg = () => {
     setImgLoading(false);
@@ -161,12 +224,47 @@ const Product = () => {
         }}
       />
     );
+  } else if (addToFavSuccessModal) {
+    showModal = (
+      <MessageModal
+        modalType="success"
+        text="Item added to favorites!"
+        buttonText="Ok"
+        buttonAction={() => {
+          setAddToFavSuccessModal(false);
+        }}
+      />
+    );
+  } else if (addToFavFailedModal) {
+    showModal = (
+      <MessageModal
+        modalType="failed"
+        text="Failed to add to favorites!"
+        buttonText="Try Later"
+        buttonAction={() => {
+          setAddToFavFailedModal(false);
+        }}
+      />
+    );
+  } else if (alreadyInFavModal) {
+    showModal = (
+      <MessageModal
+        modalType="warning"
+        text="Alredy added to favorites!"
+        buttonText="Ok"
+        buttonAction={() => {
+          setAlreadyInFavModal(false);
+        }}
+      />
+    );
   }
 
-  //for test
-  console.log(product);
-  console.log(productSize);
-  console.log(cart);
+  //showing full page loader when adding to favorites
+  let fullLoader = null;
+  if (addToFavLoading) {
+    fullLoader = <FullPageLoader />;
+  }
+
   return (
     <div className={style.product}>
       <div className="container">
@@ -224,8 +322,9 @@ const Product = () => {
               <button className={style.cartButton} onClick={addToCart}>
                 Add To Cart
               </button>
-              <button className={style.favoriteButton}>Add To Favorites</button>
-              {/* <button>Remove Favorite</button> */}
+              <button className={style.favoriteButton} onClick={addToFavorites}>
+                Add To Favorites
+              </button>
             </div>
           </div>
         </div>
@@ -234,6 +333,7 @@ const Product = () => {
         </div>
       </div>
       {showModal}
+      {fullLoader}
     </div>
   );
 };
