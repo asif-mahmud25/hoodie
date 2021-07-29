@@ -41,9 +41,12 @@ const Orders = () => {
             .orderBy("timeStamp", "desc")
             .get()
             .then((res) => {
-              res.forEach((doc) => {
-                allOrders.push({ orderId: doc.id, ...doc.data() });
-              });
+              //if the collection exist in database
+              if (res.empty === false) {
+                res.forEach((doc) => {
+                  allOrders.push({ orderId: doc.id, ...doc.data() });
+                });
+              }
 
               setLoading(false);
               setOrders(allOrders);
