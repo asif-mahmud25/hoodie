@@ -94,7 +94,7 @@ const Favorites = () => {
     <div className={style.favorites}>
       <div className="container">
         <h1 className={style.pageHeader}>YOUR FAVORITES</h1>
-        {favoriteList}
+        {favListLoading ? <MainLoader /> : <div>{favoriteList}</div>}
       </div>
     </div>
   );
