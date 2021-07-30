@@ -4,7 +4,7 @@ import style from "./FavoriteItem.module.css";
 //assets import
 import placeholderImg from "../../assets/placeholder-img-sm.svg";
 
-const FavoriteItem = () => {
+const FavoriteItem = (props) => {
   //loading state
   const [imgLoading, setImgLoading] = useState(true);
   return (
@@ -17,7 +17,7 @@ const FavoriteItem = () => {
             className={imgLoading ? style.show : style.hide}
           />
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/hoodie-94315.appspot.com/o/p2-small.png?alt=media&token=9ad1c02b-62f9-4f00-93c1-62946ad8dc2d"
+            src={props.imgSmallUrl}
             alt="product"
             className={imgLoading ? style.hide : style.show}
             onLoad={() => {
@@ -26,10 +26,10 @@ const FavoriteItem = () => {
           />
           <div className={style.favoriteItemDetails}>
             <div className={style.nameAndPrice}>
-              <p>Classic leather jacket</p>
-              <p>$86.60</p>
+              <p>{props.name}</p>
+              <p>${props.price}</p>
             </div>
-            <p className={style.itemSize}>Size: M</p>
+            <p className={style.itemSize}>Size: {props.size}</p>
             <div className={style.favoriteItemAction}>
               <button>Add To Cart</button>
               <p>Remove</p>

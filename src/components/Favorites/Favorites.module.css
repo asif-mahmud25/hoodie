@@ -10,10 +10,22 @@
   margin-bottom: 50px;
 }
 
+.noFavoritesText {
+  font-size: 20px;
+  font-weight: 500;
+  color: black;
+  margin-top: -30px;
+}
+
 @media (max-width: 600px) {
   .pageHeader {
     font-size: 28px;
     margin-top: 34px;
     margin-bottom: 30px;
+  }
+
+  .noFavoritesText {
+    font-size: 18px;
+    margin-top: -14px;
   }
 }
