@@ -1,0 +1,84 @@
+.favoriteItem {
+  width: 100%;
+  max-width: 616px;
+  margin-bottom: 40px;
+}
+
+.favoriteItemBox {
+  width: 100%;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.favoriteItemBox:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.14);
+}
+
+.favoriteItemContent {
+  width: 100%;
+  display: flex;
+}
+
+.favoriteItemContent img {
+  width: 100px;
+  align-self: flex-start;
+  margin-right: 20px;
+}
+
+.favoriteItemDetails {
+  flex: 1;
+}
+
+.nameAndPrice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nameAndPrice p {
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
+}
+
+.itemSize {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.favoriteItemAction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.favoriteItemAction button {
+  width: 136px;
+  height: 34px;
+  background-color: black;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.favoriteItemAction p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #e9533a;
+  cursor: pointer;
+}
+
+/* for hide or show */
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
