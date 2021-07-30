@@ -16,7 +16,6 @@ const Favorites = () => {
   const [favoriteItems, setFavoriteItems] = useState([]);
   //loading states
   const [favListLoading, setFavListLoading] = useState(true);
-  const [removeFavLoading, setRemoveFavLoading] = useState(true);
 
   //auth context
   const [user] = useContext(AuthContext);
@@ -26,7 +25,6 @@ const Favorites = () => {
     let unsubscribe = () => {
       console.log("fav listener was not attached.");
     };
-    let allFavorites = [];
 
     db.collection("users")
       .doc(user.userId)
@@ -39,11 +37,10 @@ const Favorites = () => {
             .collection("favorites")
             .onSnapshot(
               (snapshot) => {
-                if (snapshot.empty === false) {
-                  snapshot.forEach((doc) => {
-                    allFavorites.push({ ...doc.data() });
-                  });
-                }
+                let allFavorites = [];
+                snapshot.forEach((doc) => {
+                  allFavorites.push({ ...doc.data() });
+                });
 
                 setFavListLoading(false);
                 setFavoriteItems(allFavorites);
@@ -88,6 +85,7 @@ const Favorites = () => {
   }
 
   //for test
+  console.log("state");
   console.log(favoriteItems);
 
   return (
