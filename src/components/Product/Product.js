@@ -132,7 +132,7 @@ const Product = () => {
     setAddToFavLoading(true);
 
     //check for if user is logged in
-    if (user.userId) {
+    if (user.loggedIn) {
       db.collection("users")
         .doc(user.userId)
         .get()
@@ -145,7 +145,6 @@ const Product = () => {
               .get()
               .then((doc) => {
                 if (doc.exists) {
-                  console.log("alredy added to favorites!");
                   setAlreadyInFavModal(true);
                   setAddToFavLoading(false);
                 } else {
@@ -154,8 +153,7 @@ const Product = () => {
                     .collection("favorites")
                     .doc(product.id)
                     .set({ ...product, size: productSize })
-                    .then((res) => {
-                      console.log("added to favorites!");
+                    .then(() => {
                       setAddToFavSuccessModal(true);
                       setAddToFavLoading(false);
                     })
