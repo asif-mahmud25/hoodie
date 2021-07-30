@@ -58,11 +58,11 @@ const Product = () => {
   //auth context
   const [user] = useContext(AuthContext);
 
-  //for holding the fetched data
-  let productHolder = {};
-
   //fetch the product from firebase on component load
   useEffect(() => {
+    //for holding the fetched data
+    let productHolder = {};
+
     db.collection("products")
       .doc(`${params.id}`)
       .get()

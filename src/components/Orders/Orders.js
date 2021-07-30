@@ -24,6 +24,8 @@ const Orders = () => {
   //fetch orders when component loads
   useEffect(() => {
     fetchOrders();
+
+    // eslint-disable-next-line
   }, []);
 
   //fetch orders

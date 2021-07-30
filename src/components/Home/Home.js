@@ -21,10 +21,10 @@ const Home = () => {
   const [addedToCartModal, setAddedToCartModal] = useState(false);
   const [itemExistInCartModal, setItemExistInCartModal] = useState(false);
 
-  //for holding the products
-  let allProducts = [];
-
   useEffect(() => {
+    //for holding the products
+    let allProducts = [];
+
     db.collection("products")
       .get()
       .then((res) => {
@@ -38,11 +38,7 @@ const Home = () => {
         console.log(err);
         setLoading(false);
       });
-    // eslint-disable-next-line
   }, []);
-
-  //for test
-  console.log(products);
 
   //for rendering products on dom
   let newArrivalsRender = [];

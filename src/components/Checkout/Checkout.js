@@ -55,7 +55,9 @@ const Checkout = () => {
     if (cart.length < 1) {
       history.replace("/");
     }
-  }, []);
+
+    // eslint-disable-next-line
+  }, [cart.length]);
 
   //order items render
   let orderItems = cart.map((el) => {
