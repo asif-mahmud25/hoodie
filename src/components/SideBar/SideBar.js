@@ -53,10 +53,10 @@ const SideBar = () => {
           <NavLink to="/">Home</NavLink>
         </li>
         <li onClick={closeSidebar}>
-          <NavLink to="/favorites">Favorites</NavLink>
+          <NavLink to="/cart">Cart</NavLink>
         </li>
         <li onClick={closeSidebar}>
-          <NavLink to="/cart">Cart</NavLink>
+          <NavLink to="/login">Log In</NavLink>
         </li>
         <li>
           <div onClick={closeSidebar}>
