@@ -4,6 +4,7 @@ import style from "./Favorites.module.css";
 //components import
 import FavoriteItem from "../FavoriteItem/FavoriteItem";
 import MainLoader from "../Loaders/MainLoader/MainLoader";
+import MessageModal from "../Modals/MessageModal/MessageModal";
 
 //firestore db
 import { db } from "../../firebase";
@@ -14,11 +15,16 @@ import { AuthContext } from "../../context/AuthContext";
 const Favorites = () => {
   //favorites state
   const [favoriteItems, setFavoriteItems] = useState([]);
+
   //loading states
   const [favListLoading, setFavListLoading] = useState(true);
 
   //auth context
   const [user] = useContext(AuthContext);
+
+  //modal states
+  const [addedToCartModal, setAddedToCartModal] = useState(false);
+  const [itemInCartModal, setItemInCartModal] = useState(false);
 
   //get favorites on component load
   useEffect(() => {
@@ -61,6 +67,8 @@ const Favorites = () => {
     return () => {
       unsubscribe();
     };
+
+    // eslint-disable-next-line
   }, []);
 
   //show favorite items
@@ -79,9 +87,42 @@ const Favorites = () => {
           size={el.size}
           imgUrl={el.imgUrl}
           imgSmallUrl={el.imgSmallUrl}
+          showAddedToCartModal={() => {
+            setAddedToCartModal(true);
+          }}
+          showItemInCartModal={() => {
+            setItemInCartModal(true);
+          }}
         />
       );
     });
+  }
+
+  //modal render logic
+  let showModal = null;
+
+  if (addedToCartModal) {
+    showModal = (
+      <MessageModal
+        modalType="success"
+        text="Item added to cart!"
+        buttonText="Ok"
+        buttonAction={() => {
+          setAddedToCartModal(false);
+        }}
+      />
+    );
+  } else if (itemInCartModal) {
+    showModal = (
+      <MessageModal
+        modalType="warning"
+        text="Item already added to cart!"
+        buttonText="Ok"
+        buttonAction={() => {
+          setItemInCartModal(false);
+        }}
+      />
+    );
   }
 
   //for test
@@ -94,6 +135,7 @@ const Favorites = () => {
         <h1 className={style.pageHeader}>YOUR FAVORITES</h1>
         {favListLoading ? <MainLoader /> : <div>{favoriteList}</div>}
       </div>
+      {showModal}
     </div>
   );
 };
