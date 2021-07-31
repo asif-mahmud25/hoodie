@@ -82,3 +82,87 @@
 .show {
   display: block;
 }
+
+/* Phone version */
+.phoneFavoriteItemBox {
+  width: 100%;
+  cursor: pointer;
+}
+
+.phoneFavoriteItemContent {
+  width: 100%;
+  display: flex;
+}
+
+.phoneFavoriteItemContent img {
+  width: 70px;
+  align-self: flex-start;
+  margin-right: 10px;
+}
+
+.phoneFavoriteItemDetails {
+  flex: 1;
+}
+
+.phoneNameAndDelete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.phoneNameAndDelete p {
+  font-size: 14px;
+  font-weight: 700;
+  color: black;
+}
+
+.phoneFavoriteItemDetails .phoneNameAndDelete img {
+  width: 16px;
+  margin: 0px;
+  align-self: center;
+  cursor: pointer;
+}
+
+.phoneItemSize {
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.phonePriceAndAddToCart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.phonePriceAndAddToCart .phonePrice {
+  font-size: 16px;
+  font-weight: 700;
+  color: black;
+}
+.phonePriceAndAddToCart .phoneAddToCart {
+  font-size: 14px;
+  font-weight: 700;
+  color: black;
+  cursor: pointer;
+}
+
+@media (min-width: 601px) {
+  .phoneFavoriteItemBox {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .favoriteItemBox {
+    display: none;
+  }
+
+  .favoriteItem {
+    width: 100%;
+    max-width: 616px;
+    margin-bottom: 30px;
+  }
+}

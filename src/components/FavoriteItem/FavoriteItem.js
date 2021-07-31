@@ -11,6 +11,7 @@ import { db } from "../../firebase";
 
 //assets import
 import placeholderImg from "../../assets/placeholder-img-sm.svg";
+import deleteIcon from "../../assets/delete-icon.svg";
 
 const FavoriteItem = (props) => {
   //loading state
@@ -107,6 +108,37 @@ const FavoriteItem = (props) => {
             <div className={style.favoriteItemAction}>
               <button onClick={addToCart}>Add To Cart</button>
               <p onClick={deleteFavItem}>Remove</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/*phone version*/}
+      <div className={style.phoneFavoriteItemBox}>
+        <div className={style.phoneFavoriteItemContent}>
+          <img
+            src={placeholderImg}
+            alt="product"
+            className={imgLoading ? style.show : style.hide}
+          />
+          <img
+            src={props.imgSmallUrl}
+            alt="product"
+            className={imgLoading ? style.hide : style.show}
+            onLoad={() => {
+              setImgLoading(false);
+            }}
+          />
+          <div className={style.phoneFavoriteItemDetails}>
+            <div className={style.phoneNameAndDelete}>
+              <p>{props.name}</p>
+              <img src={deleteIcon} alt="Remove" onClick={deleteFavItem} />
+            </div>
+            <p className={style.phoneItemSize}>Size: {props.size}</p>
+            <div className={style.phonePriceAndAddToCart}>
+              <p className={style.phonePrice}>${props.price}</p>
+              <p className={style.phoneAddToCart} onClick={addToCart}>
+                +Add To Cart
+              </p>
             </div>
           </div>
         </div>
