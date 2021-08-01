@@ -281,8 +281,8 @@ const Product = () => {
     showModal = (
       <ActionModal
         modalType="warning"
-        text="Login or signup to add to favorites!"
-        buttonOneText="Login or Signup"
+        text="Log in or sign up to add to favorites!"
+        buttonOneText="Log In or Sign Up"
         buttonTwoText="Close"
         buttonOneAction={() => {
           setUserAuthenticateModal(false);

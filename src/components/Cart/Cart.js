@@ -92,8 +92,8 @@ const Cart = () => {
     showModal = (
       <ActionModal
         modalType="warning"
-        text="Login or register to complete order!"
-        buttonOneText="Login or Signup"
+        text="Log in or sign up to complete order!"
+        buttonOneText="Log In or Sign Up"
         buttonTwoText="Close"
         buttonOneAction={() => {
           history.push("/sign-up");
