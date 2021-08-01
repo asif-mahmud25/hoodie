@@ -44,8 +44,6 @@ const Login = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((res) => {
-        console.log(res);
-
         //stop loading
         setLoading(false);
 
@@ -80,9 +78,7 @@ const Login = () => {
           });
         }
 
-        //for test
         console.log(err);
-        console.log(err.code);
         console.log(err.message);
       });
   };

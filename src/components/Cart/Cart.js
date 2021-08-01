@@ -27,9 +27,6 @@ const Cart = () => {
   //for navigation
   const history = useHistory();
 
-  //for test
-  console.log(cart);
-
   //calculate total price
   let totalPrice = 0;
   let priceSum = 0;

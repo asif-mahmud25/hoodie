@@ -59,7 +59,7 @@ function App() {
             console.log(err);
           });
       } else {
-        console.log("logged out!");
+        console.log("not logged in");
 
         //clear local storage
         localStorage.clear();

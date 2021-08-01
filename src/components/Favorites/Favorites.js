@@ -52,6 +52,7 @@ const Favorites = () => {
                 setFavoriteItems(allFavorites);
               },
               (error) => {
+                console.log(error);
                 setFavListLoading(false);
               }
             );
@@ -124,10 +125,6 @@ const Favorites = () => {
       />
     );
   }
-
-  //for test
-  console.log("state");
-  console.log(favoriteItems);
 
   return (
     <div className={style.favorites}>

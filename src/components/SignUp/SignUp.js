@@ -51,10 +51,6 @@ const SignUp = () => {
         //empty the inputs
         setEmail("");
         setPassword("");
-
-        //for test
-        console.log(res);
-        console.log(res.user);
       })
       .catch((err) => {
         //stop loading
@@ -83,9 +79,7 @@ const SignUp = () => {
           });
         }
 
-        //for test
         console.log(err);
-        console.log(err.code);
         console.log(err.message);
       });
   };
