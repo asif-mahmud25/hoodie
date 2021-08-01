@@ -7,11 +7,13 @@
 .favoriteItemBox {
   width: 100%;
   padding: 16px;
+  transition-property: all;
+  transition-duration: 200ms;
   cursor: pointer;
 }
 
 .favoriteItemBox:hover {
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.14);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.14);
 }
 
 .favoriteItemContent {
