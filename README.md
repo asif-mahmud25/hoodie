@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# Hoodie
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An ecommerce store for hoodies and jackets.
 
-## Available Scripts
+## Live App
 
-In the project directory, you can run:
+Please checkout the live app here [Hoodie](https://hoodie-94315.web.app/)
 
-### `npm start`
+## App Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Fully functional ecommerce store
+- User authentication
+- Cart functionality
+- Realtime add/remove favorites functionality
+- Up to date orders list
+- User friendly UI/UX
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+- React
+- Firebase (Authentication, Cloud Firestore, Cloud Storage)
+- Context API
+- React Router
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Quick Start
 
-### `npm run build`
+1. Clone this git repository.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Run `$ npm install` in your terminal from the project directory.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Create a Firebase project. Enable Cloud Firestore, also enable Email and Password Authentication for the project. Then register a web app.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Create a `.env` file in project root and save your firebase app config in this file. See the `firebase.js` file for understanding the properties needed in `.env` file.
 
-### `npm run eject`
+5. Create a `products` collection in Cloud Firestore and fill it with the necessary data for the project. Please check `Home` , `HomeProduct` and `Product` component in the project for understanding what data is beign fetched from this collection. This is an imporntant step. The `products` collection must be made manually with the proper data for the project.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+6. Run `$ npm start` in your terminal to see the project in localhost.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Screenshots
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Home Page
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![login-page](./screenshots/home.png)
 
-## Learn More
+### Product Page
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![chat-page](./screenshots/product.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Cart Page
 
-### Code Splitting
+![add-room](./screenshots/cart.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Checkout Page
 
-### Analyzing the Bundle Size
+![logout](./screenshots/checkout.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Orders Page
 
-### Making a Progressive Web App
+![logout](./screenshots/orders.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Favorites Page
 
-### Advanced Configuration
+![logout](./screenshots/favorites.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Signup Page
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![logout](./screenshots/signup.png)
